@@ -7,10 +7,9 @@ const HeroSection = () => {
   const { t } = useLanguage();
   const { scrollY } = useScroll();
   
-  // Ajustei o parallax para ser um pouco mais sutil dado o tamanho maior da logo
-  const logoY = useTransform(scrollY, [0, 500], [0, 80]);
+  const logoY = useTransform(scrollY, [0, 500], [0, 100]);
   const logoOpacity = useTransform(scrollY, [0, 300], [1, 0]);
-  const textY = useTransform(scrollY, [0, 500], [0, 120]);
+  const textY = useTransform(scrollY, [0, 500], [0, 150]);
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
@@ -23,26 +22,25 @@ const HeroSection = () => {
           animate={{ opacity: 1 }}
           transition={{ duration: 1 }}
         >
-          {/* Logo with parallax and enhanced size/glow */}
+          {/* Logo with parallax */}
           <motion.div
             style={{ y: logoY, opacity: logoOpacity }}
-            className="mb-10"
+            className="mb-12"
           >
             <motion.img
               src={quimeraLogo}
               alt="Quimera"
-              // Aumentei os tamanhos aqui (w-80, w-96, w-[32rem])
-              className="w-80 md:w-96 lg:w-[32rem] drop-shadow-[0_0_25px_rgba(255,255,255,0.15)]"
-              initial={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
+              className="w-64 md:w-80 lg:w-96"
+              initial={{ opacity: 0, scale: 0.8, filter: "blur(10px)" }}
               animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
               transition={{ duration: 1.2, delay: 0.2, ease: "easeOut" }}
             />
           </motion.div>
 
-          {/* Tagline with stagger effect - Fonte levemente aumentada para impacto */}
+          {/* Tagline with stagger effect */}
           <motion.div style={{ y: textY }}>
             <motion.p
-              className="text-xl md:text-2xl lg:text-3xl text-muted-foreground font-body max-w-3xl mb-10 tracking-wide leading-relaxed"
+              className="text-lg md:text-xl lg:text-2xl text-muted-foreground font-body max-w-2xl mb-8 tracking-wide"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
@@ -62,7 +60,7 @@ const HeroSection = () => {
 
             {/* Subtitle */}
             <motion.p
-              className="text-base md:text-lg text-muted-foreground/80 font-body max-w-xl mx-auto mb-14"
+              className="text-sm md:text-base text-muted-foreground/70 font-body max-w-xl mb-12"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 1 }}
@@ -70,14 +68,14 @@ const HeroSection = () => {
               {t.hero.subtitle}
             </motion.p>
 
-            {/* CTA with enhanced hover - Mantido quadrado e mais robusto */}
+            {/* CTA with enhanced hover */}
             <motion.a
               href="#contact"
-              className="group relative inline-block px-12 py-6 border-2 border-foreground/30 text-foreground font-display text-base tracking-[0.2em] uppercase overflow-hidden backdrop-blur-sm"
+              className="group relative inline-block px-10 py-5 border border-foreground/30 text-foreground font-display text-sm tracking-widest uppercase overflow-hidden"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 1.2 }}
-              whileHover={{ scale: 1.05 }}
+              whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
               <motion.span
@@ -86,15 +84,33 @@ const HeroSection = () => {
                 whileHover={{ x: 0 }}
                 transition={{ duration: 0.3, ease: "easeInOut" }}
               />
-              <span className="relative z-10 group-hover:text-background transition-colors duration-300 font-bold">
+              <span className="relative z-10 group-hover:text-background transition-colors duration-300">
                 {t.hero.cta}
               </span>
             </motion.a>
           </motion.div>
         </motion.div>
       </div>
-      
-      {/* Scroll indicator removido conforme solicitado */}
+
+      {/* Enhanced scroll indicator */}
+      <motion.div
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2 }}
+      >
+        <motion.div
+          className="w-6 h-10 border border-foreground/30 rounded-full flex justify-center pt-2"
+          animate={{ borderColor: ["rgba(255,255,255,0.3)", "rgba(255,255,255,0.6)", "rgba(255,255,255,0.3)"] }}
+          transition={{ duration: 2, repeat: Infinity }}
+        >
+          <motion.div
+            className="w-1 h-2 bg-foreground/50 rounded-full"
+            animate={{ y: [0, 12, 0], opacity: [1, 0.3, 1] }}
+            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+          />
+        </motion.div>
+      </motion.div>
     </section>
   );
 };
