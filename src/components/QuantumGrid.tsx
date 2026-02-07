@@ -22,7 +22,6 @@ interface Connection {
 const QuantumGrid = () => {
   const [particles, setParticles] = useState<Particle[]>([]);
   const [connections, setConnections] = useState<Connection[]>([]);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     const newParticles: Particle[] = Array.from({ length: 30 }, (_, i) => ({
@@ -44,17 +43,6 @@ const QuantumGrid = () => {
       delay: i * 0.3,
     }));
     setConnections(newConnections);
-  }, []);
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({
-        x: (e.clientX / window.innerWidth) * 100,
-        y: (e.clientY / window.innerHeight) * 100,
-      });
-    };
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
   return (
@@ -88,21 +76,6 @@ const QuantumGrid = () => {
         </defs>
         <rect width="100%" height="100%" fill="url(#grid)" />
       </svg>
-
-      {/* Mouse follower glow */}
-      <motion.div
-        className="absolute w-64 h-64 rounded-full pointer-events-none"
-        style={{
-          background: "radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%)",
-          left: `${mousePosition.x}%`,
-          top: `${mousePosition.y}%`,
-          transform: "translate(-50%, -50%)",
-        }}
-        animate={{
-          scale: [1, 1.2, 1],
-        }}
-        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-      />
 
       {/* Floating particles */}
       {particles.map((particle) => (
