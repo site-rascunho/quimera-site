@@ -50,13 +50,68 @@ const Footer = () => {
   const { t } = useLanguage();
   
   return (
-    <footer className="py-12 border-t border-border/30 bg-background relative z-10">
-      <div className="container px-6">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-          <img src={quimeraLogo} alt="Quimera" className="h-8 opacity-70" />
+    <footer className="pt-20 pb-10 border-t border-border/40 bg-background/50 relative z-10 backdrop-blur-sm">
+      <div className="container px-6 mx-auto">
+        
+        {/* Grid Principal do Footer */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+          
+          {/* Coluna 1: Marca */}
+          <div className="md:col-span-1 flex flex-col items-start gap-4">
+            <img src={quimeraLogo} alt="Quimera" className="h-14 w-auto opacity-90" /> {/* Logo aumentada para h-14 */}
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              Soluções de ponta em computação quântica e inteligência artificial.
+            </p>
+          </div>
+
+          {/* Coluna 2: Navegação */}
+          <div className="space-y-4">
+            <h4 className="text-sm font-semibold tracking-widest uppercase text-foreground/80">Menu</h4>
+            <ul className="space-y-2">
+              <li><a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">Início</a></li>
+              <li><a href="#about" className="text-sm text-muted-foreground hover:text-primary transition-colors">Sobre</a></li>
+              <li><a href="#industries" className="text-sm text-muted-foreground hover:text-primary transition-colors">Indústrias</a></li>
+              <li><a href="#contact" className="text-sm text-muted-foreground hover:text-primary transition-colors">Contato</a></li>
+            </ul>
+          </div>
+
+          {/* Coluna 3: Contato */}
+          <div className="space-y-4">
+            <h4 className="text-sm font-semibold tracking-widest uppercase text-foreground/80">Contato</h4>
+            <ul className="space-y-2">
+              <li className="text-sm text-muted-foreground">contato@quimera.com</li>
+              <li className="text-sm text-muted-foreground">+55 83 99999-9999</li>
+              <li className="text-sm text-muted-foreground">João Pessoa, PB - Brasil</li>
+            </ul>
+          </div>
+
+          {/* Coluna 4: Redes (Placeholders) */}
+          <div className="space-y-4">
+            <h4 className="text-sm font-semibold tracking-widest uppercase text-foreground/80">Social</h4>
+            <div className="flex gap-3">
+              {/* Botões sociais simulados */}
+              <a href="#" className="w-10 h-10 rounded-md border border-border bg-card flex items-center justify-center text-muted-foreground hover:border-primary hover:text-primary transition-all duration-300">
+                in
+              </a>
+              <a href="#" className="w-10 h-10 rounded-md border border-border bg-card flex items-center justify-center text-muted-foreground hover:border-primary hover:text-primary transition-all duration-300">
+                ig
+              </a>
+              <a href="#" className="w-10 h-10 rounded-md border border-border bg-card flex items-center justify-center text-muted-foreground hover:border-primary hover:text-primary transition-all duration-300">
+                gh
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* Rodapé Inferior */}
+        <div className="pt-8 border-t border-border/30 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-xs text-muted-foreground font-body">
             © {new Date().getFullYear()} Quimera. {t.footer.rights}
           </p>
+          <div className="flex gap-6">
+            <a href="#" className="text-xs text-muted-foreground hover:text-primary transition-colors">Termos de Uso</a>
+            <a href="#" className="text-xs text-muted-foreground hover:text-primary transition-colors">Política de Privacidade</a>
+          </div>
         </div>
       </div>
     </footer>
