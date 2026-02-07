@@ -35,6 +35,12 @@ interface Translations {
     form: {
       name: string;
       email: string;
+      phone: string;       // Novo
+      jobTitle: string;    // Novo
+      industryLabel: string; // Novo
+      preferredChannelLabel: string; // Novo
+      channelWhatsapp: string; // Novo
+      channelEmail: string;    // Novo
       company: string;
       message: string;
       submit: string;
@@ -103,6 +109,12 @@ const translations: Record<Language, Translations> = {
       form: {
         name: "Nome",
         email: "Email",
+        phone: "Celular",
+        jobTitle: "Cargo",
+        industryLabel: "Indústria",
+        preferredChannelLabel: "Preferência de contato",
+        channelWhatsapp: "WhatsApp",
+        channelEmail: "Email",
         company: "Empresa",
         message: "Mensagem",
         submit: "Enviar Mensagem",
@@ -169,6 +181,12 @@ const translations: Record<Language, Translations> = {
       form: {
         name: "Name",
         email: "Email",
+        phone: "Mobile Phone",
+        jobTitle: "Job Title",
+        industryLabel: "Industry",
+        preferredChannelLabel: "Preferred contact method",
+        channelWhatsapp: "WhatsApp",
+        channelEmail: "Email",
         company: "Company",
         message: "Message",
         submit: "Send Message",
@@ -192,7 +210,7 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
-  const [language, setLanguage] = useState<Language>("en"); // Alterado para "en"
+  const [language, setLanguage] = useState<Language>("en"); 
 
   return (
     <LanguageContext.Provider value={{ language, setLanguage, t: translations[language] }}>
