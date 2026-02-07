@@ -109,7 +109,7 @@ const translations: Record<Language, Translations> = {
       form: {
         name: "Nome",
         email: "Email",
-        phone: "Celular",
+        phone: "+55 (xx) 12345-6789",
         jobTitle: "Cargo",
         industryLabel: "Indústria",
         preferredChannelLabel: "Preferência de contato",
@@ -181,7 +181,7 @@ const translations: Record<Language, Translations> = {
       form: {
         name: "Name",
         email: "Email",
-        phone: "Mobile Phone",
+        phone: "+1-212-456-7890",
         jobTitle: "Job Title",
         industryLabel: "Industry",
         preferredChannelLabel: "Preferred contact method",
