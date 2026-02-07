@@ -25,17 +25,18 @@ const QuantumGrid = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
-    const newParticles: Particle[] = Array.from({ length: 30 }, (_, i) => ({
+    // Aumentei a quantidade de partículas para mais impacto
+    const newParticles: Particle[] = Array.from({ length: 40 }, (_, i) => ({
       id: i,
       x: Math.random() * 100,
       y: Math.random() * 100,
-      size: 1 + Math.random() * 2,
+      size: 1.5 + Math.random() * 2.5, // Partículas ligeiramente maiores
       delay: Math.random() * 2,
       duration: 3 + Math.random() * 4,
     }));
     setParticles(newParticles);
 
-    const newConnections: Connection[] = Array.from({ length: 8 }, (_, i) => ({
+    const newConnections: Connection[] = Array.from({ length: 12 }, (_, i) => ({
       id: i,
       x1: 10 + Math.random() * 80,
       y1: 10 + Math.random() * 80,
@@ -59,22 +60,22 @@ const QuantumGrid = () => {
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {/* Animated gradient background */}
+      {/* Animated gradient background - Aumentei a opacidade base */}
       <motion.div
-        className="absolute inset-0 opacity-30"
+        className="absolute inset-0 opacity-40"
         animate={{
           background: [
-            "radial-gradient(circle at 20% 30%, rgba(255,255,255,0.03) 0%, transparent 50%)",
-            "radial-gradient(circle at 80% 70%, rgba(255,255,255,0.03) 0%, transparent 50%)",
-            "radial-gradient(circle at 50% 50%, rgba(255,255,255,0.03) 0%, transparent 50%)",
-            "radial-gradient(circle at 20% 30%, rgba(255,255,255,0.03) 0%, transparent 50%)",
+            "radial-gradient(circle at 20% 30%, rgba(255,255,255,0.05) 0%, transparent 60%)",
+            "radial-gradient(circle at 80% 70%, rgba(255,255,255,0.05) 0%, transparent 60%)",
+            "radial-gradient(circle at 50% 50%, rgba(255,255,255,0.05) 0%, transparent 60%)",
+            "radial-gradient(circle at 20% 30%, rgba(255,255,255,0.05) 0%, transparent 60%)",
           ],
         }}
         transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
       />
 
       {/* Grid lines */}
-      <svg className="absolute inset-0 w-full h-full opacity-[0.07]">
+      <svg className="absolute inset-0 w-full h-full opacity-[0.1]">
         <defs>
           <pattern id="grid" width="80" height="80" patternUnits="userSpaceOnUse">
             <path
@@ -91,9 +92,9 @@ const QuantumGrid = () => {
 
       {/* Mouse follower glow */}
       <motion.div
-        className="absolute w-64 h-64 rounded-full pointer-events-none"
+        className="absolute w-80 h-80 rounded-full pointer-events-none"
         style={{
-          background: "radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%)",
+          background: "radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%)",
           left: `${mousePosition.x}%`,
           top: `${mousePosition.y}%`,
           transform: "translate(-50%, -50%)",
@@ -118,7 +119,7 @@ const QuantumGrid = () => {
           animate={{
             y: [0, -40, 0],
             x: [0, 10 * Math.sin(particle.id), 0],
-            opacity: [0.1, 0.5, 0.1],
+            opacity: [0.2, 0.7, 0.2], // Mais visíveis
             scale: [1, 1.5, 1],
           }}
           transition={{
@@ -141,7 +142,7 @@ const QuantumGrid = () => {
           }}
         >
           <motion.div
-            className="w-2 h-2 rounded-full bg-foreground/40"
+            className="w-3 h-3 rounded-full bg-foreground/60"
             animate={{
               scale: [1, 2, 1],
               opacity: [0.3, 0.8, 0.3],
@@ -153,7 +154,7 @@ const QuantumGrid = () => {
             }}
           />
           <motion.div
-            className="absolute inset-0 w-2 h-2 rounded-full border border-foreground/20"
+            className="absolute inset-0 w-3 h-3 rounded-full border border-foreground/30"
             animate={{
               scale: [1, 4, 1],
               opacity: [0.5, 0, 0.5],
@@ -172,7 +173,7 @@ const QuantumGrid = () => {
         <defs>
           <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
             <stop offset="0%" stopColor="currentColor" stopOpacity="0" />
-            <stop offset="50%" stopColor="currentColor" stopOpacity="0.3" />
+            <stop offset="50%" stopColor="currentColor" stopOpacity="0.4" />
             <stop offset="100%" stopColor="currentColor" stopOpacity="0" />
           </linearGradient>
         </defs>
@@ -184,12 +185,12 @@ const QuantumGrid = () => {
             x2={`${conn.x2}%`}
             y2={`${conn.y2}%`}
             stroke="url(#lineGradient)"
-            strokeWidth="1"
+            strokeWidth="1.5"
             className="text-foreground"
             initial={{ pathLength: 0, opacity: 0 }}
             animate={{ 
               pathLength: [0, 1, 1, 0],
-              opacity: [0, 0.3, 0.3, 0],
+              opacity: [0, 0.4, 0.4, 0],
             }}
             transition={{ 
               duration: 4, 
@@ -201,14 +202,14 @@ const QuantumGrid = () => {
         ))}
       </svg>
 
-      {/* Horizontal scanning line */}
+      {/* Horizontal scanning line - IMPACTO AUMENTADO */}
       <motion.div
-        className="absolute left-0 right-0 h-px bg-gradient-to-r from-transparent via-foreground/20 to-transparent"
+        className="absolute left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-foreground/60 to-transparent shadow-[0_0_15px_rgba(var(--foreground),0.5)]"
         animate={{
           top: ["0%", "100%"],
         }}
         transition={{
-          duration: 8,
+          duration: 6, // Mais rápido
           repeat: Infinity,
           ease: "linear",
         }}
