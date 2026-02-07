@@ -7,15 +7,15 @@ const HeroSection = () => {
   const { t } = useLanguage();
   const { scrollY } = useScroll();
   
-  // Parallax modificado: O logo se move mas NÃO desaparece (removida a opacidade que ia a 0)
-  const logoY = useTransform(scrollY, [0, 500], [0, 150]);
-  const logoScale = useTransform(scrollY, [0, 500], [1, 1.1]); // Sutil zoom in para impacto
-  
-  // O texto se move um pouco mais rápido para criar profundidade
-  const textY = useTransform(scrollY, [0, 500], [0, 200]);
+  // Parallax refinado para funcionar com sticky
+  const logoY = useTransform(scrollY, [0, 500], [0, 100]);
+  const logoScale = useTransform(scrollY, [0, 500], [1, 1.1]);
+  const textY = useTransform(scrollY, [0, 500], [0, 150]);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+    // MUDANÇA IMPORTANTE: sticky top-0 h-screen z-0
+    // Isso faz o Hero ficar preso no fundo enquanto a AboutSection desliza por cima
+    <section className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden pt-20 z-0">
       <QuantumGrid />
       
       <div className="container relative z-10 px-6">
@@ -33,14 +33,14 @@ const HeroSection = () => {
             <motion.img
               src={quimeraLogo}
               alt="Quimera"
-              className="w-72 md:w-96 lg:w-[30rem] drop-shadow-[0_0_25px_rgba(255,255,255,0.15)]" // Logo maior e com brilho
+              className="w-72 md:w-96 lg:w-[30rem] drop-shadow-[0_0_25px_rgba(255,255,255,0.15)]"
               initial={{ opacity: 0, scale: 0.8, filter: "blur(10px)" }}
               animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
               transition={{ duration: 1.2, delay: 0.2, ease: "easeOut" }}
             />
           </motion.div>
 
-          {/* Tagline with stagger effect */}
+          {/* Tagline */}
           <motion.div style={{ y: textY }}>
             <motion.p
               className="text-xl md:text-2xl lg:text-3xl text-muted-foreground font-body max-w-3xl mb-8 tracking-wide font-light"
@@ -71,7 +71,7 @@ const HeroSection = () => {
               {t.hero.subtitle}
             </motion.p>
 
-            {/* CTA with enhanced hover */}
+            {/* CTA */}
             <motion.a
               href="#contact"
               className="group relative inline-block px-12 py-6 border border-foreground/40 text-foreground font-display text-sm tracking-[0.2em] uppercase overflow-hidden backdrop-blur-sm"
@@ -95,13 +95,13 @@ const HeroSection = () => {
         </motion.div>
       </div>
 
-      {/* Enhanced scroll indicator */}
+      {/* Scroll indicator - desaparece ao rolar */}
       <motion.div
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 2 }}
-        style={{ opacity: useTransform(scrollY, [0, 200], [1, 0]) }} // Apenas a seta some ao rolar
+        style={{ opacity: useTransform(scrollY, [0, 200], [1, 0]) }}
       >
         <motion.div
           className="w-6 h-10 border border-foreground/30 rounded-full flex justify-center pt-2"

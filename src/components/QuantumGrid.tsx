@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 interface Particle {
   id: number;
@@ -20,17 +20,17 @@ interface Connection {
 }
 
 const QuantumGrid = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
   const [particles, setParticles] = useState<Particle[]>([]);
   const [connections, setConnections] = useState<Connection[]>([]);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
-    // Aumentei a quantidade de partículas para mais impacto
     const newParticles: Particle[] = Array.from({ length: 40 }, (_, i) => ({
       id: i,
       x: Math.random() * 100,
       y: Math.random() * 100,
-      size: 1.5 + Math.random() * 2.5, // Partículas ligeiramente maiores
+      size: 1.5 + Math.random() * 2.5,
       delay: Math.random() * 2,
       duration: 3 + Math.random() * 4,
     }));
@@ -49,18 +49,23 @@ const QuantumGrid = () => {
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
+      if (!containerRef.current) return;
+      
+      // Calcula a posição relativa ao container para precisão total
+      const rect = containerRef.current.getBoundingClientRect();
       setMousePosition({
-        x: (e.clientX / window.innerWidth) * 100,
-        y: (e.clientY / window.innerHeight) * 100,
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top,
       });
     };
+    
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {/* Animated gradient background - Aumentei a opacidade base */}
+    <div ref={containerRef} className="absolute inset-0 overflow-hidden pointer-events-none">
+      {/* Animated gradient background */}
       <motion.div
         className="absolute inset-0 opacity-40"
         animate={{
@@ -90,13 +95,13 @@ const QuantumGrid = () => {
         <rect width="100%" height="100%" fill="url(#grid)" />
       </svg>
 
-      {/* Mouse follower glow */}
+      {/* Mouse follower glow - Agora usa pixels exatos */}
       <motion.div
         className="absolute w-80 h-80 rounded-full pointer-events-none"
         style={{
           background: "radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%)",
-          left: `${mousePosition.x}%`,
-          top: `${mousePosition.y}%`,
+          left: mousePosition.x,
+          top: mousePosition.y,
           transform: "translate(-50%, -50%)",
         }}
         animate={{
@@ -119,7 +124,7 @@ const QuantumGrid = () => {
           animate={{
             y: [0, -40, 0],
             x: [0, 10 * Math.sin(particle.id), 0],
-            opacity: [0.2, 0.7, 0.2], // Mais visíveis
+            opacity: [0.2, 0.7, 0.2],
             scale: [1, 1.5, 1],
           }}
           transition={{
@@ -201,19 +206,8 @@ const QuantumGrid = () => {
           />
         ))}
       </svg>
-
-      {/* Horizontal scanning line - IMPACTO AUMENTADO */}
-      <motion.div
-        className="absolute left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-foreground/60 to-transparent shadow-[0_0_15px_rgba(var(--foreground),0.5)]"
-        animate={{
-          top: ["0%", "100%"],
-        }}
-        transition={{
-          duration: 6, // Mais rápido
-          repeat: Infinity,
-          ease: "linear",
-        }}
-      />
+      
+      {/* LINHA DE SCANNER REMOVIDA AQUI */}
     </div>
   );
 };
