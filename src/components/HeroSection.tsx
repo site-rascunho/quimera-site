@@ -7,12 +7,15 @@ const HeroSection = () => {
   const { t } = useLanguage();
   const { scrollY } = useScroll();
   
+  // Parallax effects
   const logoY = useTransform(scrollY, [0, 500], [0, 100]);
   const logoOpacity = useTransform(scrollY, [0, 300], [1, 0]);
   const textY = useTransform(scrollY, [0, 500], [0, 150]);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+    // ADICIONADO: 'pb-40' para criar espaço extra no final da seção,
+    // permitindo que o conteúdo desça com o parallax sem ser cortado pelo overflow-hidden.
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 pb-40">
       <QuantumGrid />
       
       <div className="container relative z-10 px-6">
