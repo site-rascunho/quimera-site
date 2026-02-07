@@ -4,7 +4,7 @@ import { useRef } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import ContactForm from "./ContactForm";
 import quimeraLogo from "@/assets/quimera-logo.png";
-import { Linkedin, Instagram } from "lucide-react"; // Github removido da importação
+import { Linkedin, Instagram } from "lucide-react";
 
 const ContactSection = () => {
   const ref = useRef(null);
@@ -17,7 +17,7 @@ const ContactSection = () => {
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] -z-10" />
 
       <div className="container px-6 mx-auto">
-        {/* Título Padronizado com o novo Design */}
+        {/* Título Padronizado */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -61,24 +61,24 @@ const Footer = () => {
           <div className="md:col-span-1 flex flex-col items-start gap-4">
             <img src={quimeraLogo} alt="Quimera" className="h-14 w-auto opacity-90" />
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Soluções de ponta em computação quântica e inteligência artificial.
+              {t.footer.description}
             </p>
           </div>
 
           {/* Coluna 2: Navegação */}
           <div className="space-y-4">
-            <h4 className="text-sm font-semibold tracking-widest uppercase text-foreground/80">Menu</h4>
+            <h4 className="text-sm font-semibold tracking-widest uppercase text-foreground/80">{t.footer.menuTitle}</h4>
             <ul className="space-y-2">
-              <li><a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">Início</a></li>
-              <li><a href="#about" className="text-sm text-muted-foreground hover:text-primary transition-colors">Sobre</a></li>
-              <li><a href="#industries" className="text-sm text-muted-foreground hover:text-primary transition-colors">Indústrias</a></li>
-              <li><a href="#contact" className="text-sm text-muted-foreground hover:text-primary transition-colors">Contato</a></li>
+              <li><a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">{t.footer.links.home}</a></li>
+              <li><a href="#about" className="text-sm text-muted-foreground hover:text-primary transition-colors">{t.footer.links.about}</a></li>
+              <li><a href="#industries" className="text-sm text-muted-foreground hover:text-primary transition-colors">{t.footer.links.industries}</a></li>
+              <li><a href="#contact" className="text-sm text-muted-foreground hover:text-primary transition-colors">{t.footer.links.contact}</a></li>
             </ul>
           </div>
 
           {/* Coluna 3: Contato */}
           <div className="space-y-4">
-            <h4 className="text-sm font-semibold tracking-widest uppercase text-foreground/80">Contato</h4>
+            <h4 className="text-sm font-semibold tracking-widest uppercase text-foreground/80">{t.footer.contactTitle}</h4>
             <ul className="space-y-2">
               <li className="text-sm text-muted-foreground">contato@quimera.com</li>
               <li className="text-sm text-muted-foreground">+55 83 99999-9999</li>
@@ -88,7 +88,7 @@ const Footer = () => {
 
           {/* Coluna 4: Redes Sociais */}
           <div className="space-y-4">
-            <h4 className="text-sm font-semibold tracking-widest uppercase text-foreground/80">Social</h4>
+            <h4 className="text-sm font-semibold tracking-widest uppercase text-foreground/80">{t.footer.socialTitle}</h4>
             <div className="flex gap-3">
               {/* Botão LinkedIn */}
               <a 
@@ -117,8 +117,8 @@ const Footer = () => {
             © {new Date().getFullYear()} Quimera. {t.footer.rights}
           </p>
           <div className="flex gap-6">
-            <a href="#" className="text-xs text-muted-foreground hover:text-primary transition-colors">Termos de Uso</a>
-            <a href="#" className="text-xs text-muted-foreground hover:text-primary transition-colors">Política de Privacidade</a>
+            <a href="#" className="text-xs text-muted-foreground hover:text-primary transition-colors">{t.footer.links.terms}</a>
+            <a href="#" className="text-xs text-muted-foreground hover:text-primary transition-colors">{t.footer.links.privacy}</a>
           </div>
         </div>
       </div>

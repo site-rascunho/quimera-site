@@ -53,7 +53,19 @@ interface Translations {
     };
   };
   footer: {
+    description: string;
+    menuTitle: string;
+    contactTitle: string;
+    socialTitle: string;
     rights: string;
+    links: {
+      home: string;
+      about: string;
+      industries: string;
+      contact: string;
+      terms: string;
+      privacy: string;
+    }
   };
 }
 
@@ -130,7 +142,19 @@ const translations: Record<Language, Translations> = {
       },
     },
     footer: {
+      description: "Soluções de ponta em computação quântica e inteligência artificial.",
+      menuTitle: "Menu",
+      contactTitle: "Contato",
+      socialTitle: "Social",
       rights: "Todos os direitos reservados.",
+      links: {
+        home: "Início",
+        about: "Sobre",
+        industries: "Indústrias",
+        contact: "Contato",
+        terms: "Termos de Uso",
+        privacy: "Política de Privacidade",
+      }
     },
   },
   en: {
@@ -205,7 +229,19 @@ const translations: Record<Language, Translations> = {
       },
     },
     footer: {
+      description: "Cutting-edge solutions in quantum computing and artificial intelligence.",
+      menuTitle: "Menu",
+      contactTitle: "Contact",
+      socialTitle: "Social",
       rights: "All rights reserved.",
+      links: {
+        home: "Home",
+        about: "About",
+        industries: "Industries",
+        contact: "Contact",
+        terms: "Terms of Use",
+        privacy: "Privacy Policy",
+      }
     },
   },
 };
@@ -219,7 +255,7 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
-  const [language, setLanguage] = useState<Language>("en"); // Alterado para "en"
+  const [language, setLanguage] = useState<Language>("en");
 
   return (
     <LanguageContext.Provider value={{ language, setLanguage, t: translations[language] }}>
