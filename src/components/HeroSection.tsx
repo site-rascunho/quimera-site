@@ -71,7 +71,7 @@ const HeroSection = () => {
             {/* CTA with enhanced hover */}
             <motion.a
               href="#contact"
-              className="group relative px-10 py-5 border border-foreground/30 text-foreground font-display text-sm tracking-widest uppercase overflow-hidden"
+              className="group relative inline-block px-10 py-5 border border-foreground/30 text-foreground font-display text-sm tracking-widest uppercase overflow-hidden"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 1.2 }}
