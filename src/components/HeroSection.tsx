@@ -13,6 +13,22 @@ const HeroSection = () => {
   
   const bgOpacity = useTransform(scrollY, [0, 500], [0, 0.5]);
 
+  // Função para scroll suave com compensação do header (igual à Navigation)
+  const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    const element = document.querySelector(href);
+    if (element) {
+      const headerOffset = 80;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      });
+    }
+  };
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16 pb-20">
       <QuantumGrid />
@@ -95,7 +111,7 @@ const HeroSection = () => {
             >
               <a
                 href="#contact"
-                // Alterado: "border-2" para "border" (agora é 1px)
+                onClick={(e) => handleScroll(e, "#contact")} // Correção aplicada aqui
                 className="group relative inline-flex items-center justify-center px-10 py-3 text-sm font-display tracking-[0.2em] uppercase bg-background text-foreground border border-foreground overflow-hidden transition-all hover:scale-105 hover:bg-foreground hover:text-background"
               >
                 <div className="absolute inset-0 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-white/20 to-transparent z-10" />
