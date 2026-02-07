@@ -114,90 +114,125 @@ const ContactForm = () => {
     >
       <div className="space-y-4">
         {/* Name */}
-        <Input
-          name="name"
-          placeholder={t.contact.form.name}
-          value={formData.name}
-          onChange={handleChange}
-          required
-          className="bg-transparent border-foreground/20 focus:border-foreground text-foreground placeholder:text-foreground/40"
-        />
+        <div className="space-y-2">
+          <Label htmlFor="name" className="text-foreground font-medium">
+            {t.contact.form.name}
+          </Label>
+          <Input
+            id="name"
+            name="name"
+            placeholder={t.contact.form.name}
+            value={formData.name}
+            onChange={handleChange}
+            required
+            className="bg-transparent border-foreground/20 focus:border-foreground text-foreground placeholder:text-foreground/40"
+          />
+        </div>
 
         {/* Email & Phone */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <Input
-            name="email"
-            type="email"
-            placeholder={t.contact.form.email}
-            value={formData.email}
-            onChange={handleChange}
-            required
-            className="bg-transparent border-foreground/20 focus:border-foreground text-foreground placeholder:text-foreground/40"
-          />
-          <Input
-            name="phone"
-            type="tel"
-            placeholder={t.contact.form.phone}
-            value={formData.phone}
-            onChange={handleChange}
-            required
-            className="bg-transparent border-foreground/20 focus:border-foreground text-foreground placeholder:text-foreground/40"
-          />
+          <div className="space-y-2">
+            <Label htmlFor="email" className="text-foreground font-medium">
+              {t.contact.form.email}
+            </Label>
+            <Input
+              id="email"
+              name="email"
+              type="email"
+              placeholder={t.contact.form.email}
+              value={formData.email}
+              onChange={handleChange}
+              required
+              className="bg-transparent border-foreground/20 focus:border-foreground text-foreground placeholder:text-foreground/40"
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="phone" className="text-foreground font-medium">
+              {t.contact.form.phone}
+            </Label>
+            <Input
+              id="phone"
+              name="phone"
+              type="tel"
+              placeholder={t.contact.form.phone}
+              value={formData.phone}
+              onChange={handleChange}
+              required
+              className="bg-transparent border-foreground/20 focus:border-foreground text-foreground placeholder:text-foreground/40"
+            />
+          </div>
         </div>
 
         {/* Job Title & Company */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-           <Input
-            name="jobTitle"
-            placeholder={t.contact.form.jobTitle}
-            value={formData.jobTitle}
-            onChange={handleChange}
-            required
-            className="bg-transparent border-foreground/20 focus:border-foreground text-foreground placeholder:text-foreground/40"
-          />
-          <Input
-            name="company"
-            placeholder={t.contact.form.company}
-            value={formData.company}
-            onChange={handleChange}
-            className="bg-transparent border-foreground/20 focus:border-foreground text-foreground placeholder:text-foreground/40"
-          />
+           <div className="space-y-2">
+            <Label htmlFor="jobTitle" className="text-foreground font-medium">
+              {t.contact.form.jobTitle}
+            </Label>
+            <Input
+              id="jobTitle"
+              name="jobTitle"
+              placeholder={t.contact.form.jobTitle}
+              value={formData.jobTitle}
+              onChange={handleChange}
+              required
+              className="bg-transparent border-foreground/20 focus:border-foreground text-foreground placeholder:text-foreground/40"
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="company" className="text-foreground font-medium">
+              {t.contact.form.company}
+            </Label>
+            <Input
+              id="company"
+              name="company"
+              placeholder={t.contact.form.company}
+              value={formData.company}
+              onChange={handleChange}
+              className="bg-transparent border-foreground/20 focus:border-foreground text-foreground placeholder:text-foreground/40"
+            />
+          </div>
         </div>
 
         {/* Industry Select */}
-        <Select onValueChange={handleSelectChange} value={formData.industry}>
-          <SelectTrigger className="bg-transparent border-foreground/20 focus:border-foreground text-foreground">
-            <SelectValue placeholder={t.contact.form.industryLabel} />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="logistics">{t.industries.logistics.title}</SelectItem>
-            <SelectItem value="finance">{t.industries.finance.title}</SelectItem>
-            <SelectItem value="energy">{t.industries.energy.title}</SelectItem>
-            <SelectItem value="manufacturing">{t.industries.manufacturing.title}</SelectItem>
-            <SelectItem value="other">Other</SelectItem>
-          </SelectContent>
-        </Select>
+        <div className="space-y-2">
+          <Label htmlFor="industry" className="text-foreground font-medium">
+            {t.contact.form.industryLabel}
+          </Label>
+          <Select onValueChange={handleSelectChange} value={formData.industry}>
+            <SelectTrigger id="industry" className="bg-transparent border-foreground/20 focus:border-foreground text-foreground">
+              <SelectValue placeholder={t.contact.form.industryLabel} />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="logistics">{t.industries.logistics.title}</SelectItem>
+              <SelectItem value="finance">{t.industries.finance.title}</SelectItem>
+              <SelectItem value="energy">{t.industries.energy.title}</SelectItem>
+              <SelectItem value="manufacturing">{t.industries.manufacturing.title}</SelectItem>
+              <SelectItem value="other">Other</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
 
         {/* Preferred Channel */}
         <div className="space-y-2">
-          <Label className="text-foreground/80 text-sm font-normal">
+          <Label className="text-foreground font-medium">
             {t.contact.form.preferredChannelLabel}
           </Label>
           <RadioGroup
             defaultValue="email"
             value={formData.preferredChannel}
             onValueChange={handleRadioChange}
-            className="flex space-x-4"
+            className="flex space-x-4 pt-1"
           >
             <div className="flex items-center space-x-2">
               <RadioGroupItem value="email" id="channel-email" className="border-foreground/20 text-primary" />
-              <Label htmlFor="channel-email" className="text-foreground/80 cursor-pointer">
+              <Label htmlFor="channel-email" className="text-foreground/80 cursor-pointer font-normal">
                 {t.contact.form.channelEmail}
               </Label>
             </div>
             <div className="flex items-center space-x-2">
               <RadioGroupItem value="whatsapp" id="channel-whatsapp" className="border-foreground/20 text-primary" />
-              <Label htmlFor="channel-whatsapp" className="text-foreground/80 cursor-pointer">
+              <Label htmlFor="channel-whatsapp" className="text-foreground/80 cursor-pointer font-normal">
                 {t.contact.form.channelWhatsapp}
               </Label>
             </div>
@@ -205,15 +240,21 @@ const ContactForm = () => {
         </div>
 
         {/* Message */}
-        <Textarea
-          name="message"
-          placeholder={t.contact.form.message}
-          value={formData.message}
-          onChange={handleChange}
-          required
-          rows={5}
-          className="bg-transparent border-foreground/20 focus:border-foreground text-foreground placeholder:text-foreground/40 resize-none"
-        />
+        <div className="space-y-2">
+          <Label htmlFor="message" className="text-foreground font-medium">
+            {t.contact.form.message}
+          </Label>
+          <Textarea
+            id="message"
+            name="message"
+            placeholder={t.contact.form.message}
+            value={formData.message}
+            onChange={handleChange}
+            required
+            rows={5}
+            className="bg-transparent border-foreground/20 focus:border-foreground text-foreground placeholder:text-foreground/40 resize-none"
+          />
+        </div>
       </div>
 
       <motion.button

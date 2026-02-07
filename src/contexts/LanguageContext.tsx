@@ -35,12 +35,12 @@ interface Translations {
     form: {
       name: string;
       email: string;
-      phone: string;       // Novo
-      jobTitle: string;    // Novo
-      industryLabel: string; // Novo
-      preferredChannelLabel: string; // Novo
-      channelWhatsapp: string; // Novo
-      channelEmail: string;    // Novo
+      phone: string;
+      jobTitle: string;
+      industryLabel: string;
+      preferredChannelLabel: string;
+      channelWhatsapp: string;
+      channelEmail: string;
       company: string;
       message: string;
       submit: string;
@@ -109,7 +109,7 @@ const translations: Record<Language, Translations> = {
       form: {
         name: "Nome",
         email: "Email",
-        phone: "+55 (xx) 12345-6789",
+        phone: "Celular",
         jobTitle: "Cargo",
         industryLabel: "Indústria",
         preferredChannelLabel: "Preferência de contato",
@@ -181,7 +181,7 @@ const translations: Record<Language, Translations> = {
       form: {
         name: "Name",
         email: "Email",
-        phone: "+1-212-456-7890",
+        phone: "Mobile Phone",
         jobTitle: "Job Title",
         industryLabel: "Industry",
         preferredChannelLabel: "Preferred contact method",
