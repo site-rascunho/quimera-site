@@ -154,7 +154,7 @@ const ContactForm = () => {
               id="phone"
               name="phone"
               type="tel"
-              placeholder={t.contact.form.phone}
+              placeholder={t.contact.form.phonePlaceholder} // Placeholder atualizado
               value={formData.phone}
               onChange={handleChange}
               required

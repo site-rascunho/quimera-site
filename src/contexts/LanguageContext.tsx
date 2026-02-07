@@ -36,6 +36,7 @@ interface Translations {
       name: string;
       email: string;
       phone: string;
+      phonePlaceholder: string; // Novo campo
       jobTitle: string;
       industryLabel: string;
       preferredChannelLabel: string;
@@ -109,7 +110,8 @@ const translations: Record<Language, Translations> = {
       form: {
         name: "Nome",
         email: "Email",
-        phone: "+55 (xx) 12345-6789",
+        phone: "Celular",
+        phonePlaceholder: "+55 (xx) 12345-6789", // Placeholder PT
         jobTitle: "Cargo",
         industryLabel: "Indústria",
         preferredChannelLabel: "Preferência de contato",
@@ -181,7 +183,8 @@ const translations: Record<Language, Translations> = {
       form: {
         name: "Name",
         email: "Email",
-        phone: "+1-212-456-7890",
+        phone: "Mobile Phone",
+        phonePlaceholder: "+1-212-456-7890", // Placeholder EN
         jobTitle: "Job Title",
         industryLabel: "Industry",
         preferredChannelLabel: "Preferred contact method",
