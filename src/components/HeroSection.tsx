@@ -106,19 +106,23 @@ const HeroSection = () => {
         </motion.div>
       </div>
 
-      <motion.div
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2, duration: 1 }}
-      >
-        <span className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground/40">Scroll</span>
-        <motion.div
-          className="w-[1px] h-8 bg-gradient-to-b from-foreground/0 via-foreground/30 to-foreground/0"
-          animate={{ scaleY: [0.5, 1.5, 0.5], opacity: [0.3, 1, 0.3] }}
-          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-        />
-      </motion.div>
+      {/* Botão com novo estilo (Preto com borda branca) */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 1 }}
+            >
+              <a
+                href="#contact"
+                // Mudanças aqui: bg-background, text-foreground, border-2 border-foreground
+                // Adicionado hover:bg-foreground hover:text-background para inverter ao passar o mouse
+                className="group relative inline-flex items-center justify-center px-10 py-3 text-sm font-display tracking-[0.2em] uppercase bg-background text-foreground border-2 border-foreground overflow-hidden transition-all hover:scale-105 hover:bg-foreground hover:text-background"
+              >
+                {/* O efeito shimmer ainda funciona bem com a borda */}
+                <div className="absolute inset-0 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-white/20 to-transparent z-10" />
+                <span className="relative z-20">{t.hero.cta}</span>
+              </a>
+            </motion.div>
     </section>
   );
 };
