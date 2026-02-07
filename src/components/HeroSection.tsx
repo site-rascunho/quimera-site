@@ -7,26 +7,21 @@ const HeroSection = () => {
   const { t } = useLanguage();
   const { scrollY } = useScroll();
   
-  // Parallax effects suavizados para manter o conjunto mais unido
+  // Parallax: O logo se move mais devagar que o texto para criar profundidade
   const logoY = useTransform(scrollY, [0, 500], [0, 50]);
   const logoOpacity = useTransform(scrollY, [0, 300], [1, 0]);
-  const textY = useTransform(scrollY, [0, 500], [0, 80]);
+  const textY = useTransform(scrollY, [0, 500], [0, 100]);
   
-  // Opacidade do background
   const bgOpacity = useTransform(scrollY, [0, 500], [0, 0.5]);
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16 pb-20">
-      {/* Background Elements */}
       <QuantumGrid />
       
-      {/* Overlay gradiente suave */}
       <motion.div 
         className="absolute inset-0 bg-background pointer-events-none z-0"
         style={{ opacity: bgOpacity }}
       />
-
-      {/* REMOVIDO: O div de "luz ambiental/sombra" foi retirado conforme solicitado */}
 
       <div className="container relative z-10 px-6">
         <motion.div
@@ -35,25 +30,21 @@ const HeroSection = () => {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8 }}
         >
-          {/* Logo Container */}
+          {/* LOGO CONTAINER */}
+          {/* z-0 para ficar atrás do texto */}
           <motion.div
             style={{ y: logoY, opacity: logoOpacity }}
-            className="mb-6 relative" // Margem reduzida de mb-10 para mb-6
+            className="relative z-0" 
           >
-            {/* Animação de flutuação mais sutil */}
             <motion.div
               animate={{ y: [0, -10, 0] }}
-              transition={{ 
-                duration: 6, 
-                repeat: Infinity, 
-                ease: "easeInOut" 
-              }}
+              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
             >
               <motion.img
                 src={quimeraLogo}
                 alt="Quimera"
-                // Tamanhos reduzidos para garantir que o botão caiba na tela
-                className="w-48 md:w-64 lg:w-80 drop-shadow-2xl"
+                // Aumentei drasticamente o tamanho aqui (w-72 a w-[34rem])
+                className="w-72 md:w-96 lg:w-[34rem] drop-shadow-2xl opacity-90"
                 initial={{ opacity: 0, scale: 0.8, filter: "blur(10px)" }}
                 animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
                 transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
@@ -61,17 +52,22 @@ const HeroSection = () => {
             </motion.div>
           </motion.div>
 
-          {/* Text Content */}
-          <motion.div style={{ y: textY }} className="relative">
+          {/* TEXT CONTENT */}
+          {/* -mt-12 ou -mt-20 puxa o texto para cima do logo (overlap) */}
+          {/* z-10 garante que o texto fique SOBRE o logo */}
+          <motion.div 
+            style={{ y: textY }} 
+            className="relative z-10 -mt-12 md:-mt-16 lg:-mt-20"
+          >
             
-            {/* Tagline */}
             <motion.h1
-              className="text-2xl md:text-3xl lg:text-4xl font-display max-w-3xl mb-4 tracking-wide leading-tight" // Margem reduzida para mb-4
+              className="text-2xl md:text-3xl lg:text-4xl font-display max-w-3xl mb-6 tracking-wide leading-tight"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
             >
-              <span className="bg-gradient-to-b from-foreground via-foreground/90 to-foreground/50 bg-clip-text text-transparent drop-shadow-sm">
+              {/* Adicionei drop-shadow-md ao texto para garantir leitura caso sobreponha o logo */}
+              <span className="bg-gradient-to-b from-foreground via-foreground/90 to-foreground/50 bg-clip-text text-transparent drop-shadow-md">
                 {t.hero.tagline.split(" ").map((word, i) => (
                   <motion.span
                     key={i}
@@ -86,9 +82,8 @@ const HeroSection = () => {
               </span>
             </motion.h1>
 
-            {/* Subtitle */}
             <motion.p
-              className="text-sm md:text-base text-muted-foreground/80 font-body max-w-xl mx-auto mb-8 leading-relaxed" // Margem reduzida para mb-8
+              className="text-sm md:text-base text-muted-foreground/90 font-body max-w-xl mx-auto mb-8 leading-relaxed drop-shadow-sm"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 1, delay: 0.8 }}
@@ -96,7 +91,6 @@ const HeroSection = () => {
               {t.hero.subtitle}
             </motion.p>
 
-            {/* CTA Button */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -104,11 +98,9 @@ const HeroSection = () => {
             >
               <a
                 href="#contact"
-                className="group relative inline-flex items-center justify-center px-10 py-3 text-sm font-display tracking-[0.2em] uppercase text-background bg-foreground overflow-hidden transition-all hover:scale-105"
+                className="group relative inline-flex items-center justify-center px-10 py-3 text-sm font-display tracking-[0.2em] uppercase text-background bg-foreground overflow-hidden transition-all hover:scale-105 shadow-lg hover:shadow-xl"
               >
-                {/* Efeito Shimmer mantido, mas sem sombra externa */}
                 <div className="absolute inset-0 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-white/20 to-transparent z-10" />
-                
                 <span className="relative z-20">{t.hero.cta}</span>
               </a>
             </motion.div>
@@ -116,7 +108,6 @@ const HeroSection = () => {
         </motion.div>
       </div>
 
-      {/* Scroll Indicator - Mais discreto e posicionado mais acima */}
       <motion.div
         className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
         initial={{ opacity: 0 }}
