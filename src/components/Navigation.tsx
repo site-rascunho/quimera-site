@@ -2,6 +2,13 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
 import quimeraLogo from "@/assets/quimera-head.png";
 import { useEffect, useState } from "react";
+import { Globe, Check } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const Navigation = () => {
   const { language, setLanguage, t } = useLanguage();
@@ -90,33 +97,34 @@ const Navigation = () => {
             ))}
           </div>
 
-          {/* Language Toggle - Square Design */}
-          <div className="flex items-center gap-px bg-secondary/20 border border-white/10">
-            <button
-              onClick={() => setLanguage("pt")}
-              className={`
-                px-4 py-2 text-xs font-display tracking-wider transition-all duration-300
-                ${language === "pt" 
-                  ? "bg-foreground text-background font-bold" 
-                  : "bg-transparent text-foreground/70 hover:bg-white/5 hover:text-foreground"
-                }
-              `}
-            >
-              PT
-            </button>
-            <button
-              onClick={() => setLanguage("en")}
-              className={`
-                px-4 py-2 text-xs font-display tracking-wider transition-all duration-300
-                ${language === "en" 
-                  ? "bg-foreground text-background font-bold" 
-                  : "bg-transparent text-foreground/70 hover:bg-white/5 hover:text-foreground"
-                }
-              `}
-            >
-              EN
-            </button>
-          </div>
+          {/* Language Selector - Discreet Design */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <button 
+                className="flex items-center gap-2 px-3 py-2 rounded-md text-sm font-display tracking-widest uppercase text-foreground/70 hover:text-foreground hover:bg-white/5 transition-all duration-200 outline-none"
+              >
+                <Globe className="h-4 w-4" strokeWidth={1.5} />
+                <span className="hidden sm:inline-block text-xs font-bold">{t.nav.languageLabel}</span>
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-40 bg-background/95 backdrop-blur-md border-border/40 mt-2">
+              <DropdownMenuItem 
+                onClick={() => setLanguage("pt")}
+                className="cursor-pointer flex items-center justify-between text-sm"
+              >
+                <span>Português</span>
+                {language === "pt" && <Check className="h-3.5 w-3.5" />}
+              </DropdownMenuItem>
+              <DropdownMenuItem 
+                onClick={() => setLanguage("en")}
+                className="cursor-pointer flex items-center justify-between text-sm"
+              >
+                <span>English</span>
+                {language === "en" && <Check className="h-3.5 w-3.5" />}
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+
         </div>
       </div>
     </motion.nav>

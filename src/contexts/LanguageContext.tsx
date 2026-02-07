@@ -7,6 +7,7 @@ interface Translations {
     about: string;
     industries: string;
     contact: string;
+    languageLabel: string; // Nova propriedade
   };
   hero: {
     tagline: string;
@@ -44,7 +45,7 @@ interface Translations {
       channelEmail: string;
       company: string;
       message: string;
-      messagePlaceholder: string; // Novo campo
+      messagePlaceholder: string;
       submit: string;
       sending: string;
       success: string;
@@ -62,6 +63,7 @@ const translations: Record<Language, Translations> = {
       about: "Sobre",
       industries: "Indústrias",
       contact: "Contato",
+      languageLabel: "Idioma", // Tradução PT
     },
     hero: {
       tagline: "Algoritmos quantum-inspired de otimização para a indústria do futuro",
@@ -120,7 +122,7 @@ const translations: Record<Language, Translations> = {
         channelEmail: "Email",
         company: "Empresa",
         message: "Mensagem",
-        messagePlaceholder: "Conte-nos mais sobre o que você precisa...", // Placeholder PT
+        messagePlaceholder: "Conte-nos mais sobre o que você precisa...",
         submit: "Enviar Mensagem",
         sending: "Enviando...",
         success: "Mensagem enviada com sucesso!",
@@ -136,6 +138,7 @@ const translations: Record<Language, Translations> = {
       about: "About",
       industries: "Industries",
       contact: "Contact",
+      languageLabel: "Language", // Tradução EN
     },
     hero: {
       tagline: "Quantum-inspired optimization algorithms for the industry of the future",
@@ -194,7 +197,7 @@ const translations: Record<Language, Translations> = {
         channelEmail: "Email",
         company: "Company",
         message: "Message",
-        messagePlaceholder: "Tell us more about what you need...", // Placeholder EN
+        messagePlaceholder: "Tell us more about what you need...",
         submit: "Send Message",
         sending: "Sending...",
         success: "Message sent successfully!",
@@ -216,7 +219,7 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
-  const [language, setLanguage] = useState<Language>("en"); 
+  const [language, setLanguage] = useState<Language>("pt"); // Mudei o default para PT, se preferir
 
   return (
     <LanguageContext.Provider value={{ language, setLanguage, t: translations[language] }}>
