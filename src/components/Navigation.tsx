@@ -8,7 +8,6 @@ const Navigation = () => {
   const { scrollY } = useScroll();
   const [isScrolled, setIsScrolled] = useState(false);
   
-  // Efeito para detectar scroll e mudar estilo se necessário
   useEffect(() => {
     const updateScroll = () => {
       setIsScrolled(window.scrollY > 50);
@@ -31,7 +30,6 @@ const Navigation = () => {
     { label: t.nav.contact, href: "#contact" },
   ];
 
-  // Função para rolagem suave
   const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
     if (href === "#") {
@@ -41,7 +39,6 @@ const Navigation = () => {
     
     const element = document.querySelector(href);
     if (element) {
-      // Offset para compensar a altura do menu fixo
       const headerOffset = 80;
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
@@ -65,7 +62,7 @@ const Navigation = () => {
     >
       <div className="container px-6">
         <div className="flex items-center justify-between">
-          {/* Logo - Aumentada e com retorno ao topo */}
+          {/* Logo */}
           <motion.a
             href="#"
             onClick={(e) => handleScroll(e, "#")}
@@ -88,39 +85,37 @@ const Navigation = () => {
                 transition={{ duration: 0.2 }}
               >
                 {item.label}
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-foreground transition-all duration-300 group-hover:w-full" />
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-foreground transition-all duration-300 group-hover:text-full" />
               </motion.a>
             ))}
           </div>
 
-          {/* Language Toggle - Novo Design */}
-          <div className="flex items-center">
-            <div className="bg-secondary/20 hover:bg-secondary/30 backdrop-blur-sm border border-white/10 rounded-full p-1 flex items-center transition-all duration-300">
-              <button
-                onClick={() => setLanguage("pt")}
-                className={`
-                  relative px-4 py-1.5 rounded-full text-xs font-display tracking-wider transition-all duration-300
-                  ${language === "pt" 
-                    ? "text-background bg-foreground shadow-sm font-bold" 
-                    : "text-foreground/60 hover:text-foreground"
-                  }
-                `}
-              >
-                PT
-              </button>
-              <button
-                onClick={() => setLanguage("en")}
-                className={`
-                  relative px-4 py-1.5 rounded-full text-xs font-display tracking-wider transition-all duration-300
-                  ${language === "en" 
-                    ? "text-background bg-foreground shadow-sm font-bold" 
-                    : "text-foreground/60 hover:text-foreground"
-                  }
-                `}
-              >
-                EN
-              </button>
-            </div>
+          {/* Language Toggle - Square Design */}
+          <div className="flex items-center gap-px bg-secondary/20 border border-white/10">
+            <button
+              onClick={() => setLanguage("pt")}
+              className={`
+                px-4 py-2 text-xs font-display tracking-wider transition-all duration-300
+                ${language === "pt" 
+                  ? "bg-foreground text-background font-bold" 
+                  : "bg-transparent text-foreground/70 hover:bg-white/5 hover:text-foreground"
+                }
+              `}
+            >
+              PT
+            </button>
+            <button
+              onClick={() => setLanguage("en")}
+              className={`
+                px-4 py-2 text-xs font-display tracking-wider transition-all duration-300
+                ${language === "en" 
+                  ? "bg-foreground text-background font-bold" 
+                  : "bg-transparent text-foreground/70 hover:bg-white/5 hover:text-foreground"
+                }
+              `}
+            >
+              EN
+            </button>
           </div>
         </div>
       </div>
