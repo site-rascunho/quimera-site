@@ -9,9 +9,7 @@ const AboutSection = () => {
   const { t } = useLanguage();
 
   return (
-    // MUDANÇA IMPORTANTE: relative z-10 bg-background
-    // Garante que esta seção tenha um fundo (para não ser transparente) e passe POR CIMA do Hero
-    <section ref={ref} id="about" className="relative z-10 bg-background py-32 border-t border-border/30">
+    <section ref={ref} id="about" className="py-32 border-t border-border/30">
       <div className="container px-6">
         <motion.div
           className="max-w-4xl mx-auto"
