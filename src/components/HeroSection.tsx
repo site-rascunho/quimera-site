@@ -106,23 +106,21 @@ const HeroSection = () => {
         </motion.div>
       </div>
 
-      {/* Botão com novo estilo (Preto com borda branca) */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 1 }}
-            >
-              <a
-                href="#contact"
-                // Mudanças aqui: bg-background, text-foreground, border-2 border-foreground
-                // Adicionado hover:bg-foreground hover:text-background para inverter ao passar o mouse
-                className="group relative inline-flex items-center justify-center px-10 py-3 text-sm font-display tracking-[0.2em] uppercase bg-background text-foreground border-2 border-foreground overflow-hidden transition-all hover:scale-105 hover:bg-foreground hover:text-background"
-              >
-                {/* O efeito shimmer ainda funciona bem com a borda */}
-                <div className="absolute inset-0 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-white/20 to-transparent z-10" />
-                <span className="relative z-20">{t.hero.cta}</span>
-              </a>
-            </motion.div>
+      {/* Indicador de Scroll ainda mais fino e minimalista */}
+      <motion.div
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2.5, duration: 1.5 }}
+      >
+        <div className="h-12 w-[1px] bg-gradient-to-b from-transparent via-foreground/40 to-transparent overflow-hidden">
+          <motion.div 
+            className="w-full h-1/2 bg-foreground shadow-[0_0_10px_rgba(255,255,255,0.8)]"
+            animate={{ y: [-20, 50] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+          />
+        </div>
+      </motion.div>
     </section>
   );
 };
