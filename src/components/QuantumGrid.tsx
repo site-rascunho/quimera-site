@@ -1,0 +1,220 @@
+import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+
+interface Particle {
+  id: number;
+  x: number;
+  y: number;
+  size: number;
+  delay: number;
+  duration: number;
+}
+
+interface Connection {
+  id: number;
+  x1: number;
+  y1: number;
+  x2: number;
+  y2: number;
+  delay: number;
+}
+
+const QuantumGrid = () => {
+  const [particles, setParticles] = useState<Particle[]>([]);
+  const [connections, setConnections] = useState<Connection[]>([]);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const newParticles: Particle[] = Array.from({ length: 30 }, (_, i) => ({
+      id: i,
+      x: Math.random() * 100,
+      y: Math.random() * 100,
+      size: 1 + Math.random() * 2,
+      delay: Math.random() * 2,
+      duration: 3 + Math.random() * 4,
+    }));
+    setParticles(newParticles);
+
+    const newConnections: Connection[] = Array.from({ length: 8 }, (_, i) => ({
+      id: i,
+      x1: 10 + Math.random() * 80,
+      y1: 10 + Math.random() * 80,
+      x2: 10 + Math.random() * 80,
+      y2: 10 + Math.random() * 80,
+      delay: i * 0.3,
+    }));
+    setConnections(newConnections);
+  }, []);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePosition({
+        x: (e.clientX / window.innerWidth) * 100,
+        y: (e.clientY / window.innerHeight) * 100,
+      });
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
+
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {/* Animated gradient background */}
+      <motion.div
+        className="absolute inset-0 opacity-30"
+        animate={{
+          background: [
+            "radial-gradient(circle at 20% 30%, rgba(255,255,255,0.03) 0%, transparent 50%)",
+            "radial-gradient(circle at 80% 70%, rgba(255,255,255,0.03) 0%, transparent 50%)",
+            "radial-gradient(circle at 50% 50%, rgba(255,255,255,0.03) 0%, transparent 50%)",
+            "radial-gradient(circle at 20% 30%, rgba(255,255,255,0.03) 0%, transparent 50%)",
+          ],
+        }}
+        transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+      />
+
+      {/* Grid lines */}
+      <svg className="absolute inset-0 w-full h-full opacity-[0.07]">
+        <defs>
+          <pattern id="grid" width="80" height="80" patternUnits="userSpaceOnUse">
+            <path
+              d="M 80 0 L 0 0 0 80"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="0.5"
+              className="text-foreground"
+            />
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#grid)" />
+      </svg>
+
+      {/* Mouse follower glow */}
+      <motion.div
+        className="absolute w-64 h-64 rounded-full pointer-events-none"
+        style={{
+          background: "radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%)",
+          left: `${mousePosition.x}%`,
+          top: `${mousePosition.y}%`,
+          transform: "translate(-50%, -50%)",
+        }}
+        animate={{
+          scale: [1, 1.2, 1],
+        }}
+        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+      />
+
+      {/* Floating particles */}
+      {particles.map((particle) => (
+        <motion.div
+          key={particle.id}
+          className="absolute rounded-full bg-foreground"
+          style={{
+            left: `${particle.x}%`,
+            top: `${particle.y}%`,
+            width: particle.size,
+            height: particle.size,
+          }}
+          animate={{
+            y: [0, -40, 0],
+            x: [0, 10 * Math.sin(particle.id), 0],
+            opacity: [0.1, 0.5, 0.1],
+            scale: [1, 1.5, 1],
+          }}
+          transition={{
+            duration: particle.duration,
+            repeat: Infinity,
+            delay: particle.delay,
+            ease: "easeInOut",
+          }}
+        />
+      ))}
+
+      {/* Pulsing quantum nodes */}
+      {[...Array(5)].map((_, i) => (
+        <motion.div
+          key={`node-${i}`}
+          className="absolute"
+          style={{
+            left: `${15 + i * 18}%`,
+            top: `${20 + (i % 3) * 25}%`,
+          }}
+        >
+          <motion.div
+            className="w-2 h-2 rounded-full bg-foreground/40"
+            animate={{
+              scale: [1, 2, 1],
+              opacity: [0.3, 0.8, 0.3],
+            }}
+            transition={{
+              duration: 2 + i * 0.5,
+              repeat: Infinity,
+              delay: i * 0.4,
+            }}
+          />
+          <motion.div
+            className="absolute inset-0 w-2 h-2 rounded-full border border-foreground/20"
+            animate={{
+              scale: [1, 4, 1],
+              opacity: [0.5, 0, 0.5],
+            }}
+            transition={{
+              duration: 2 + i * 0.5,
+              repeat: Infinity,
+              delay: i * 0.4,
+            }}
+          />
+        </motion.div>
+      ))}
+
+      {/* Animated connecting lines */}
+      <svg className="absolute inset-0 w-full h-full">
+        <defs>
+          <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="currentColor" stopOpacity="0" />
+            <stop offset="50%" stopColor="currentColor" stopOpacity="0.3" />
+            <stop offset="100%" stopColor="currentColor" stopOpacity="0" />
+          </linearGradient>
+        </defs>
+        {connections.map((conn) => (
+          <motion.line
+            key={conn.id}
+            x1={`${conn.x1}%`}
+            y1={`${conn.y1}%`}
+            x2={`${conn.x2}%`}
+            y2={`${conn.y2}%`}
+            stroke="url(#lineGradient)"
+            strokeWidth="1"
+            className="text-foreground"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ 
+              pathLength: [0, 1, 1, 0],
+              opacity: [0, 0.3, 0.3, 0],
+            }}
+            transition={{ 
+              duration: 4, 
+              delay: conn.delay,
+              repeat: Infinity,
+              repeatDelay: 2,
+            }}
+          />
+        ))}
+      </svg>
+
+      {/* Horizontal scanning line */}
+      <motion.div
+        className="absolute left-0 right-0 h-px bg-gradient-to-r from-transparent via-foreground/20 to-transparent"
+        animate={{
+          top: ["0%", "100%"],
+        }}
+        transition={{
+          duration: 8,
+          repeat: Infinity,
+          ease: "linear",
+        }}
+      />
+    </div>
+  );
+};
+
+export default QuantumGrid;
