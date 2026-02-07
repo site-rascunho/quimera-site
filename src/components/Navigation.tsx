@@ -1,6 +1,6 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
-import quimeraLogo from "@/assets/quimera-logo.png";
+import quimeraLogo from "@/assets/quimera-logo-short.png";
 import { useEffect, useState } from "react";
 import { Globe, Check } from "lucide-react";
 import {
@@ -104,7 +104,8 @@ const Navigation = () => {
                 className="flex items-center gap-2 px-3 py-2 rounded-md text-sm font-display tracking-widest uppercase text-foreground/70 hover:text-foreground hover:bg-white/5 transition-all duration-200 outline-none"
               >
                 <Globe className="h-4 w-4" strokeWidth={1.5} />
-                <span className="hidden sm:inline-block text-xs font-bold">{t.nav.languageLabel}</span>
+                {/* Alteração aqui: Removido 'hidden sm:inline-block' para mostrar sempre */}
+                <span className="text-xs font-bold">{t.nav.languageLabel}</span>
               </button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-40 bg-background/95 backdrop-blur-md border-border/40 mt-2">
