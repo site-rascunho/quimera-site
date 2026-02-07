@@ -7,7 +7,6 @@ const HeroSection = () => {
   const { t } = useLanguage();
   const { scrollY } = useScroll();
   
-  // Parallax: O logo se move mais devagar que o texto para criar profundidade
   const logoY = useTransform(scrollY, [0, 500], [0, 50]);
   const logoOpacity = useTransform(scrollY, [0, 300], [1, 0]);
   const textY = useTransform(scrollY, [0, 500], [0, 100]);
@@ -30,8 +29,7 @@ const HeroSection = () => {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8 }}
         >
-          {/* LOGO CONTAINER */}
-          {/* z-0 para ficar atrás do texto */}
+          {/* LOGO CONTAINER (Z-0) */}
           <motion.div
             style={{ y: logoY, opacity: logoOpacity }}
             className="relative z-0" 
@@ -43,7 +41,6 @@ const HeroSection = () => {
               <motion.img
                 src={quimeraLogo}
                 alt="Quimera"
-                // Aumentei drasticamente o tamanho aqui (w-72 a w-[34rem])
                 className="w-72 md:w-96 lg:w-[34rem] drop-shadow-2xl opacity-90"
                 initial={{ opacity: 0, scale: 0.8, filter: "blur(10px)" }}
                 animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
@@ -52,21 +49,19 @@ const HeroSection = () => {
             </motion.div>
           </motion.div>
 
-          {/* TEXT CONTENT */}
-          {/* -mt-12 ou -mt-20 puxa o texto para cima do logo (overlap) */}
-          {/* z-10 garante que o texto fique SOBRE o logo */}
+          {/* TEXT CONTENT (Z-10 com sobreposição) */}
           <motion.div 
             style={{ y: textY }} 
             className="relative z-10 -mt-12 md:-mt-16 lg:-mt-20"
           >
             
+            {/* Título com estilo Itálico para mais criatividade */}
             <motion.h1
-              className="text-2xl md:text-3xl lg:text-4xl font-display max-w-3xl mb-6 tracking-wide leading-tight"
+              className="text-2xl md:text-3xl lg:text-4xl font-display italic max-w-3xl mb-6 tracking-wide leading-tight"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
             >
-              {/* Adicionei drop-shadow-md ao texto para garantir leitura caso sobreponha o logo */}
               <span className="bg-gradient-to-b from-foreground via-foreground/90 to-foreground/50 bg-clip-text text-transparent drop-shadow-md">
                 {t.hero.tagline.split(" ").map((word, i) => (
                   <motion.span
@@ -82,8 +77,9 @@ const HeroSection = () => {
               </span>
             </motion.h1>
 
+            {/* Subtítulo usando fonte Monoespaçada (tech/criativa) */}
             <motion.p
-              className="text-sm md:text-base text-muted-foreground/90 font-body max-w-xl mx-auto mb-8 leading-relaxed drop-shadow-sm"
+              className="text-sm md:text-base text-muted-foreground/90 font-mono max-w-xl mx-auto mb-8 leading-relaxed drop-shadow-sm"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 1, delay: 0.8 }}
@@ -91,6 +87,7 @@ const HeroSection = () => {
               {t.hero.subtitle}
             </motion.p>
 
+            {/* Botão com novo estilo (Preto com borda branca) */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -98,8 +95,11 @@ const HeroSection = () => {
             >
               <a
                 href="#contact"
-                className="group relative inline-flex items-center justify-center px-10 py-3 text-sm font-display tracking-[0.2em] uppercase text-background bg-foreground overflow-hidden transition-all hover:scale-105 shadow-lg hover:shadow-xl"
+                // Mudanças aqui: bg-background, text-foreground, border-2 border-foreground
+                // Adicionado hover:bg-foreground hover:text-background para inverter ao passar o mouse
+                className="group relative inline-flex items-center justify-center px-10 py-3 text-sm font-display tracking-[0.2em] uppercase bg-background text-foreground border-2 border-foreground overflow-hidden transition-all hover:scale-105 hover:bg-foreground hover:text-background"
               >
+                {/* O efeito shimmer ainda funciona bem com a borda */}
                 <div className="absolute inset-0 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-white/20 to-transparent z-10" />
                 <span className="relative z-20">{t.hero.cta}</span>
               </a>
