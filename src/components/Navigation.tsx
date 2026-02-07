@@ -77,7 +77,7 @@ const Navigation = () => {
             whileHover={{ opacity: 0.8, scale: 1.05 }}
             transition={{ duration: 0.2 }}
           >
-            <img src={quimeraLogo} alt="Quimera" className="h-16 md:h-20 w-auto object-contain" />
+            <img src={quimeraLogo} alt="Quimera" className="h-12 w-auto object-contain" />
           </motion.a>
 
           {/* Nav Links */}
