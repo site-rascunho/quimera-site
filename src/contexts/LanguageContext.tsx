@@ -7,7 +7,7 @@ interface Translations {
     about: string;
     industries: string;
     contact: string;
-    languageLabel: string; // Nova propriedade
+    languageLabel: string;
   };
   hero: {
     tagline: string;
@@ -63,7 +63,7 @@ const translations: Record<Language, Translations> = {
       about: "Sobre",
       industries: "Indústrias",
       contact: "Contato",
-      languageLabel: "Idioma", // Tradução PT
+      languageLabel: "Idioma",
     },
     hero: {
       tagline: "Algoritmos quantum-inspired de otimização para a indústria do futuro",
@@ -138,7 +138,7 @@ const translations: Record<Language, Translations> = {
       about: "About",
       industries: "Industries",
       contact: "Contact",
-      languageLabel: "Language", // Tradução EN
+      languageLabel: "Language",
     },
     hero: {
       tagline: "Quantum-inspired optimization algorithms for the industry of the future",
@@ -219,7 +219,7 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
-  const [language, setLanguage] = useState<Language>("pt"); // Mudei o default para PT, se preferir
+  const [language, setLanguage] = useState<Language>("en"); // Alterado para "en"
 
   return (
     <LanguageContext.Provider value={{ language, setLanguage, t: translations[language] }}>
