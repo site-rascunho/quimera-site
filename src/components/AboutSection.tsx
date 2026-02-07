@@ -17,9 +17,14 @@ const AboutSection = () => {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-sm font-display tracking-[0.3em] uppercase text-muted-foreground mb-8">
-            {t.about.title}
-          </h2>
+          {/* Início da alteração: Estilo do título igual ao ContactSection */}
+          <div className="text-center mb-12">
+            <h2 className="text-sm font-display tracking-[0.3em] uppercase text-primary mb-4 font-bold">
+              {t.about.title}
+            </h2>
+            <div className="h-1 w-20 bg-primary/30 mx-auto" />
+          </div>
+          {/* Fim da alteração */}
           
           <p className="text-2xl md:text-3xl lg:text-4xl font-display leading-relaxed text-foreground/90">
             {t.about.description}
