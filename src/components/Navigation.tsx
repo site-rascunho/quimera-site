@@ -1,6 +1,6 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
-import quimeraLogo from "@/assets/quimera-logo.png";
+import quimeraLogo from "@/assets/quimera-head.png";
 import { useEffect, useState } from "react";
 
 const Navigation = () => {
