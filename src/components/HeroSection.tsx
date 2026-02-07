@@ -97,7 +97,7 @@ const HeroSection = () => {
                 href="#contact"
                 // Mudanças aqui: bg-background, text-foreground, border-2 border-foreground
                 // Adicionado hover:bg-foreground hover:text-background para inverter ao passar o mouse
-                className="group relative inline-flex items-center justify-center px-10 py-3 text-sm font-display tracking-[0.2em] uppercase bg-background text-foreground border-2 border-foreground overflow-hidden transition-all hover:scale-105 hover:bg-foreground hover:text-background"
+                className="group relative inline-flex items-center justify-center px-10 py-3 text-sm font-display tracking-[0.2em] uppercase bg-background text-foreground border-1 border-foreground overflow-hidden transition-all hover:scale-105 hover:bg-foreground hover:text-background"
               >
                 {/* O efeito shimmer ainda funciona bem com a borda */}
                 <div className="absolute inset-0 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-white/20 to-transparent z-10" />
