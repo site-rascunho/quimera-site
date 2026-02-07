@@ -49,6 +49,30 @@ const ContactSection = () => {
 
 const Footer = () => {
   const { t } = useLanguage();
+
+  // Função para gerir o scroll suave (Igual à Navigation e Hero)
+  const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    
+    // Se for para o topo (Início)
+    if (href === "#") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+    
+    // Para as outras secções
+    const element = document.querySelector(href);
+    if (element) {
+      const headerOffset = 100; // Compensação da altura do menu
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      });
+    }
+  };
   
   return (
     <footer className="pt-20 pb-10 border-t border-border/40 bg-background/50 relative z-10 backdrop-blur-sm">
@@ -65,14 +89,46 @@ const Footer = () => {
             </p>
           </div>
 
-          {/* Coluna 2: Navegação */}
+          {/* Coluna 2: Navegação (Com handleScroll aplicado) */}
           <div className="space-y-4">
             <h4 className="text-sm font-semibold tracking-widest uppercase text-foreground/80">{t.footer.menuTitle}</h4>
             <ul className="space-y-2">
-              <li><a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">{t.footer.links.home}</a></li>
-              <li><a href="#about" className="text-sm text-muted-foreground hover:text-primary transition-colors">{t.footer.links.about}</a></li>
-              <li><a href="#industries" className="text-sm text-muted-foreground hover:text-primary transition-colors">{t.footer.links.industries}</a></li>
-              <li><a href="#contact" className="text-sm text-muted-foreground hover:text-primary transition-colors">{t.footer.links.contact}</a></li>
+              <li>
+                <a 
+                  href="#" 
+                  onClick={(e) => handleScroll(e, "#")}
+                  className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                >
+                  {t.footer.links.home}
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="#about" 
+                  onClick={(e) => handleScroll(e, "#about")}
+                  className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                >
+                  {t.footer.links.about}
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="#industries" 
+                  onClick={(e) => handleScroll(e, "#industries")}
+                  className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                >
+                  {t.footer.links.industries}
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="#contact" 
+                  onClick={(e) => handleScroll(e, "#contact")}
+                  className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                >
+                  {t.footer.links.contact}
+                </a>
+              </li>
             </ul>
           </div>
 
