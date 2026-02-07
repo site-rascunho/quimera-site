@@ -154,7 +154,7 @@ const ContactForm = () => {
               id="phone"
               name="phone"
               type="tel"
-              placeholder={t.contact.form.phonePlaceholder} // Placeholder atualizado
+              placeholder={t.contact.form.phonePlaceholder}
               value={formData.phone}
               onChange={handleChange}
               required
@@ -247,7 +247,7 @@ const ContactForm = () => {
           <Textarea
             id="message"
             name="message"
-            placeholder={t.contact.form.message}
+            placeholder={t.contact.form.messagePlaceholder} // Atualizado aqui
             value={formData.message}
             onChange={handleChange}
             required

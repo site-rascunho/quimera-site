@@ -36,7 +36,7 @@ interface Translations {
       name: string;
       email: string;
       phone: string;
-      phonePlaceholder: string; // Novo campo
+      phonePlaceholder: string;
       jobTitle: string;
       industryLabel: string;
       preferredChannelLabel: string;
@@ -44,6 +44,7 @@ interface Translations {
       channelEmail: string;
       company: string;
       message: string;
+      messagePlaceholder: string; // Novo campo
       submit: string;
       sending: string;
       success: string;
@@ -111,7 +112,7 @@ const translations: Record<Language, Translations> = {
         name: "Nome",
         email: "Email",
         phone: "Celular",
-        phonePlaceholder: "+55 (xx) 12345-6789", // Placeholder PT
+        phonePlaceholder: "+55 (xx) 12345-6789",
         jobTitle: "Cargo",
         industryLabel: "Indústria",
         preferredChannelLabel: "Preferência de contato",
@@ -119,6 +120,7 @@ const translations: Record<Language, Translations> = {
         channelEmail: "Email",
         company: "Empresa",
         message: "Mensagem",
+        messagePlaceholder: "Conte-nos mais sobre o que você precisa...", // Placeholder PT
         submit: "Enviar Mensagem",
         sending: "Enviando...",
         success: "Mensagem enviada com sucesso!",
@@ -184,7 +186,7 @@ const translations: Record<Language, Translations> = {
         name: "Name",
         email: "Email",
         phone: "Mobile Phone",
-        phonePlaceholder: "+1-212-456-7890", // Placeholder EN
+        phonePlaceholder: "+1-212-456-7890",
         jobTitle: "Job Title",
         industryLabel: "Industry",
         preferredChannelLabel: "Preferred contact method",
@@ -192,6 +194,7 @@ const translations: Record<Language, Translations> = {
         channelEmail: "Email",
         company: "Company",
         message: "Message",
+        messagePlaceholder: "Tell us more about what you need...", // Placeholder EN
         submit: "Send Message",
         sending: "Sending...",
         success: "Message sent successfully!",
