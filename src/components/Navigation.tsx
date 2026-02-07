@@ -1,6 +1,6 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
-import quimeraLogo from "@/assets/quimera-head.png";
+import quimeraLogo from "@/assets/quimera-head-inv.png";
 import { useEffect, useState } from "react";
 import { Globe, Check } from "lucide-react";
 import {
