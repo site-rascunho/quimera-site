@@ -7,84 +7,91 @@ const HeroSection = () => {
   const { t } = useLanguage();
   const { scrollY } = useScroll();
   
-  const logoY = useTransform(scrollY, [0, 500], [0, 100]);
-  const logoOpacity = useTransform(scrollY, [0, 300], [1, 0]);
-  const textY = useTransform(scrollY, [0, 500], [0, 150]);
+  // Parallax mais suave
+  const logoY = useTransform(scrollY, [0, 500], [0, 50]);
+  const contentY = useTransform(scrollY, [0, 500], [0, 100]);
+  const opacity = useTransform(scrollY, [0, 300], [1, 0]);
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-      <QuantumGrid />
+      {/* Background com Grid e Gradientes para profundidade */}
+      <div className="absolute inset-0 z-0">
+        <QuantumGrid />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/10 via-background/50 to-background pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/5 via-transparent to-transparent opacity-40 pointer-events-none" />
+      </div>
       
       <div className="container relative z-10 px-6">
         <motion.div
           className="flex flex-col items-center text-center"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1 }}
+          transition={{ duration: 1.5 }}
+          style={{ opacity }}
         >
-          {/* Logo with parallax */}
+          {/* Logo com efeito de flutuação (breathing effect) */}
           <motion.div
-            style={{ y: logoY, opacity: logoOpacity }}
-            className="mb-12"
+            style={{ y: logoY }}
+            className="mb-10 relative"
           >
-            <motion.img
-              src={quimeraLogo}
-              alt="Quimera"
-              className="w-64 md:w-80 lg:w-96"
-              initial={{ opacity: 0, scale: 0.8, filter: "blur(10px)" }}
-              animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-              transition={{ duration: 1.2, delay: 0.2, ease: "easeOut" }}
-            />
+            <motion.div
+              animate={{ y: [0, -10, 0] }}
+              transition={{ 
+                duration: 6, 
+                repeat: Infinity, 
+                ease: "easeInOut" 
+              }}
+            >
+              <motion.div 
+                className="absolute inset-0 blur-3xl bg-primary/20 rounded-full opacity-0"
+                animate={{ opacity: [0, 0.2, 0] }}
+                transition={{ duration: 4, repeat: Infinity }}
+              />
+              <motion.img
+                src={quimeraLogo}
+                alt="Quimera"
+                className="w-56 md:w-72 lg:w-80 relative z-10 drop-shadow-2xl"
+                initial={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
+                animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                transition={{ duration: 1.2, ease: "easeOut" }}
+              />
+            </motion.div>
           </motion.div>
 
-          {/* Tagline with stagger effect */}
-          <motion.div style={{ y: textY }}>
-            <motion.p
-              className="text-lg md:text-xl lg:text-2xl text-muted-foreground font-body max-w-2xl mb-8 tracking-wide"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
-            >
-              {t.hero.tagline.split(" ").map((word, i) => (
-                <motion.span
-                  key={i}
-                  className="inline-block mr-2"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.6 + i * 0.05 }}
-                >
-                  {word}
-                </motion.span>
-              ))}
-            </motion.p>
-
-            {/* Subtitle */}
-            <motion.p
-              className="text-sm md:text-base text-muted-foreground/70 font-body max-w-xl mb-12"
+          {/* Conteúdo de Texto */}
+          <motion.div style={{ y: contentY }} className="max-w-4xl mx-auto">
+            {/* Tagline Principal */}
+            <motion.h1
+              className="text-3xl md:text-5xl lg:text-6xl font-display font-medium tracking-tight text-foreground mb-8 leading-tight"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 1 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
+              {t.hero.tagline}
+            </motion.h1>
+
+            {/* Subtítulo Elegante */}
+            <motion.p
+              className="text-base md:text-lg text-muted-foreground font-body leading-relaxed max-w-2xl mx-auto mb-12 tracking-wide"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1, delay: 0.8 }}
             >
               {t.hero.subtitle}
             </motion.p>
 
-            {/* CTA with enhanced hover */}
+            {/* CTA Minimalista e Premium */}
             <motion.a
               href="#contact"
-              className="group relative inline-block px-10 py-5 border border-foreground/30 text-foreground font-display text-sm tracking-widest uppercase overflow-hidden"
+              className="group relative inline-flex items-center justify-center px-12 py-4 overflow-hidden rounded-full backdrop-blur-sm bg-background/5 border border-foreground/10 transition-all duration-500 hover:border-foreground/30 hover:bg-background/10"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 1.2 }}
+              transition={{ duration: 0.8, delay: 1 }}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
-              <motion.span
-                className="absolute inset-0 bg-foreground"
-                initial={{ x: "-100%" }}
-                whileHover={{ x: 0 }}
-                transition={{ duration: 0.3, ease: "easeInOut" }}
-              />
-              <span className="relative z-10 group-hover:text-background transition-colors duration-300">
+              <span className="absolute inset-0 bg-gradient-to-r from-transparent via-foreground/5 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out" />
+              <span className="relative z-10 font-display text-sm tracking-[0.2em] uppercase text-foreground/90 group-hover:text-foreground transition-colors">
                 {t.hero.cta}
               </span>
             </motion.a>
@@ -92,24 +99,15 @@ const HeroSection = () => {
         </motion.div>
       </div>
 
-      {/* Enhanced scroll indicator */}
+      {/* Scroll Indicator Sutil */}
       <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 2 }}
+        transition={{ delay: 2, duration: 1.5 }}
       >
-        <motion.div
-          className="w-6 h-10 border border-foreground/30 rounded-full flex justify-center pt-2"
-          animate={{ borderColor: ["rgba(255,255,255,0.3)", "rgba(255,255,255,0.6)", "rgba(255,255,255,0.3)"] }}
-          transition={{ duration: 2, repeat: Infinity }}
-        >
-          <motion.div
-            className="w-1 h-2 bg-foreground/50 rounded-full"
-            animate={{ y: [0, 12, 0], opacity: [1, 0.3, 1] }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-          />
-        </motion.div>
+        <span className="text-[10px] uppercase tracking-widest text-muted-foreground/50 mb-2">Scroll</span>
+        <div className="w-[1px] h-12 bg-gradient-to-b from-foreground/50 to-transparent opacity-50" />
       </motion.div>
     </section>
   );
