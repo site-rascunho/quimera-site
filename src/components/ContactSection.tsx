@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import ContactForm from "./ContactForm";
 import quimeraLogo from "@/assets/quimera-logo.png";
+import { Linkedin, Instagram } from "lucide-react"; // Github removido da importação
 
 const ContactSection = () => {
   const ref = useRef(null);
@@ -58,7 +59,7 @@ const Footer = () => {
           
           {/* Coluna 1: Marca */}
           <div className="md:col-span-1 flex flex-col items-start gap-4">
-            <img src={quimeraLogo} alt="Quimera" className="h-14 w-auto opacity-90" /> {/* Logo aumentada para h-14 */}
+            <img src={quimeraLogo} alt="Quimera" className="h-14 w-auto opacity-90" />
             <p className="text-sm text-muted-foreground leading-relaxed">
               Soluções de ponta em computação quântica e inteligência artificial.
             </p>
@@ -85,19 +86,26 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Coluna 4: Redes (Placeholders) */}
+          {/* Coluna 4: Redes Sociais */}
           <div className="space-y-4">
             <h4 className="text-sm font-semibold tracking-widest uppercase text-foreground/80">Social</h4>
             <div className="flex gap-3">
-              {/* Botões sociais simulados */}
-              <a href="#" className="w-10 h-10 rounded-md border border-border bg-card flex items-center justify-center text-muted-foreground hover:border-primary hover:text-primary transition-all duration-300">
-                in
+              {/* Botão LinkedIn */}
+              <a 
+                href="#" 
+                aria-label="LinkedIn"
+                className="w-10 h-10 rounded-md border border-border bg-card flex items-center justify-center text-muted-foreground hover:border-primary hover:text-primary hover:bg-primary/5 transition-all duration-300"
+              >
+                <Linkedin size={20} strokeWidth={1.5} />
               </a>
-              <a href="#" className="w-10 h-10 rounded-md border border-border bg-card flex items-center justify-center text-muted-foreground hover:border-primary hover:text-primary transition-all duration-300">
-                ig
-              </a>
-              <a href="#" className="w-10 h-10 rounded-md border border-border bg-card flex items-center justify-center text-muted-foreground hover:border-primary hover:text-primary transition-all duration-300">
-                gh
+              
+              {/* Botão Instagram */}
+              <a 
+                href="#" 
+                aria-label="Instagram"
+                className="w-10 h-10 rounded-md border border-border bg-card flex items-center justify-center text-muted-foreground hover:border-primary hover:text-primary hover:bg-primary/5 transition-all duration-300"
+              >
+                <Instagram size={20} strokeWidth={1.5} />
               </a>
             </div>
           </div>
