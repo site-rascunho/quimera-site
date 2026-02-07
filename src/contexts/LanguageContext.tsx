@@ -67,7 +67,7 @@ const translations: Record<Language, Translations> = {
     },
     hero: {
       tagline: "Algoritmos quantum-inspired de otimização para a indústria do futuro",
-      subtitle: "Rodando em HPCs e computadores quânticos",
+      subtitle: "Feito para hoje. Pronto para o amanhã.",
       cta: "Fale Conosco",
     },
     about: {
@@ -142,7 +142,7 @@ const translations: Record<Language, Translations> = {
     },
     hero: {
       tagline: "Quantum-inspired optimization algorithms for the industry of the future",
-      subtitle: "Running on HPCs and quantum computers",
+      subtitle: "Built for today. Ready for tomorrow.",
       cta: "Contact Us",
     },
     about: {
